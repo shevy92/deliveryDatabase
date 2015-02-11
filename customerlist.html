@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Dancer List</title>
+	</head>
+
+	<body>
+	
+		<form action="customerlist.php" method="POST">
+			<h1>Customer Lookup</h1>
+			<h3>First Name</h3>
+			<input type="text" name="first"/>
+			<input type="submit" value="Search"/>
+		</form>
+
+		<?php
+
+			$sql_link = new mysqli("localhost", "admin", "adminadmin", "order_system"); 
+
+			$query = "";
+
+			if($_POST['first']) {
+				$first_name = mysqli_escape_string($sql_link, $_POST['first']);
+
+				$query = sprintf("SELECT * FROM order_system WHERE first_name LIKE '%%%s%%'", $first_name);
+			}
+
+			else {
+				$query = "SELECT * FROM customer_list";
+
+			}
+
+			$result = mysqli_query($sql_link, $query);
+
+		?>
+
+		<!--
+		<?php foreach($result as $row):?>
+
+			<h4><?php echo $row['first_name'];?></h4>
+		<?php endforeach;?>
+		-->
+
+
+	</body>
+</html>
